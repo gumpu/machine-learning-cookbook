@@ -78,5 +78,7 @@ write.table(testset,
     row.names=FALSE, col.names=TRUE)
 save(testset, file="test.rdata")
 
-
+dataset$test         <- FALSE
+dataset[-ind,"test"] <- TRUE
+save(dataset, file="dataset.rdata")
 

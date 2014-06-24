@@ -1,0 +1,22 @@
+digraph T {
+    Gender;
+    Eyesize;
+    Headsize;
+    Age;
+    Height;
+    Wingspan;
+    Weight;
+    Kind;
+
+    Gender -> Height;
+    Age    -> Height;
+    Kind   -> Height;
+
+    Age -> Wingspan;
+    Wingspan -> Weight;
+    Height -> Weight;
+    Kind   -> Weight;
+
+    Eyesize -> Headsize;
+}
+

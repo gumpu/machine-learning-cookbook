@@ -1,30 +1,113 @@
 % vi: spell spl=en
-\documentclass[11pt,a4paper,oldtoc,final]{article}
+%\documentclass[11pt,a4paper,oldtoc,final]{article}
+\documentclass[11pt,a4paper,oldtoc,final]{tufte-book}
 %\usepackage{a4wide}
 
 \usepackage{float}
 \usepackage{subfig}
 \usepackage{graphicx}
+\usepackage{makeidx}
+\makeindex
+
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+
+%\usepackage{bookman}
+%\usepackage[T1]{fontenc}
 
 \title{ML Cookbook}
 \author{Frans Slothouber}
+\publisher{We Dig Data}
 \date{\today}
 
+\newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
+% Prints the month name (e.g., January) and the year (e.g., 2008)
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
+
+
+%=============================================================================
 
 \begin{document}
+\frontmatter
+\blankpage
+
 \maketitle
 
-\section{Introduction}
+% v.4 copyright page
+\newpage
+\begin{fullwidth}
+~\vfill
+\thispagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+Copyright \copyright\ \the\year\ \thanklessauthor
 
-\section{The Dataset}
+\par\smallcaps{Published by \thanklesspublisher}
 
-\begin{figure}
+% \par\smallcaps{\url{http://wedigdata.com}}
+
+\par This work is licensed under the Creative Commons Attribution-ShareAlike
+4.0 International License. To view a copy of this license, visit
+\url{http://creativecommons.org/licenses/by-sa/4.0/}. \index{license}
+
+\par\textit{First printing, \monthyear}
+\end{fullwidth}
+
+
+
+\chapter*{Introduction}
+
+In the book we take a single dataset and use this to 
+exhaustively try out a large number of machine learning techniques.
+
+\mainmatter
+
+\chapter{The Dataset}
+
+The dataset used in this book is a synthetic one.
+It has data on fictional owl species: forest owls and city owls.
+\index{city owl} \index{forest owl}
+It contains $100,000$ samples, divided in a test and training set of
+equal size.
+
+\begin{marginfigure}
+    \includegraphics[width=\textwidth]{Figures/Correlations/cor}
+    \caption{Relations between the features}
+\end{marginfigure}
+
+The set contains the following features:
+\begin{itemize}
+    \item kind     - factor: forest, city
+    \item gender   - factor: male, female
+    \item eyesize  - number
+    \item headsize - number
+    \item age      - number
+    \item height   - number
+    \item wingspan - number
+    \item weight   - number
+\end{itemize}
+
+
+\begin{figure*}
     \subfloat{\includegraphics[width=0.45\textwidth]{Figures/DatasetStats/age_density}}
     \subfloat{\includegraphics[width=0.45\textwidth]{Figures/DatasetStats/weight_density}} \\
     \subfloat{\includegraphics[width=0.45\textwidth]{Figures/DatasetStats/height_density}}
-     \caption{TODO}
-\end{figure}
+     \caption{Density plots for the various factors in the dataset}
+\end{figure*}
 
+
+\chapter{Training}
+
+\chapter{Validation}
+
+\chapter{Sandbox}
+
+Test \cite{Tufte2006}
 
 % Random Forest
 
@@ -32,13 +115,27 @@
 
 % Missing Data
 
+% R function for given tasks
+%
+% Scaling / normalization  scale()
+
+% Terms
+
+% Factor
+% Features
+% Test set
+% Training set
+% CV
+%
+
+\backmatter
+
+\bibliography{book}
+\bibliographystyle{plainnat}
+
+\printindex
+
 \end{document}
 
 
-% \begin{figure}
-% \begin{center}
-%   \includegraphics[width=\textwidth]{PreComp/ind_MON_MODE__User_Mode.pdf}
-%     \caption{Voorbeeld van een heatmap}
-% \end{center}
-% \end{figure}
 

@@ -28,17 +28,17 @@
   December\fi\space\number\year
 }
 
-
-
 %=============================================================================
 
 \begin{document}
+
+%=============================================================================
 \frontmatter
 \blankpage
 
 \maketitle
 
-% v.4 copyright page
+% copyright page
 \newpage
 \begin{fullwidth}
 ~\vfill
@@ -58,6 +58,14 @@ Copyright \copyright\ \the\year\ \thanklessauthor
 \par\textit{First printing, \monthyear}
 \end{fullwidth}
 
+% contents
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+
 
 
 \chapter*{Introduction}
@@ -65,6 +73,8 @@ Copyright \copyright\ \the\year\ \thanklessauthor
 In the book we take a single dataset and use this to 
 exhaustively try out a large number of machine learning techniques.
 
+
+%=============================================================================
 \mainmatter
 
 \chapter{The Dataset}
@@ -72,8 +82,8 @@ exhaustively try out a large number of machine learning techniques.
 The dataset used in this book is a synthetic one.
 It has data on fictional owl species: forest owls and city owls.
 \index{city owl} \index{forest owl}
-It contains $100,000$ samples, divided in a test and training set of
-equal size.
+The full dataset contains $100,000$ samples and is divided by uniform sampling
+into an equally sized test and training set.
 
 \begin{marginfigure}
     \includegraphics[width=\textwidth]{Figures/Correlations/cor}
@@ -82,8 +92,8 @@ equal size.
 
 The set contains the following features:
 \begin{itemize}
-    \item kind     - factor: forest, city
-    \item gender   - factor: male, female
+    \item kind     - a factor with two levels: forest, city.
+    \item gender   - a factor with two levels: male, female.
     \item eyesize  - number
     \item headsize - number
     \item age      - number
@@ -102,6 +112,10 @@ The set contains the following features:
 
 
 \chapter{Training}
+
+\section{Random Forest}
+
+\cite{Breiman2001}
 
 \chapter{Validation}
 

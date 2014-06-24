@@ -17,6 +17,9 @@ clean :
 	-rm -f book.idx
 	-rm -f book.ilg
 	-rm -f book.ind
+	-rm -f book.toc
+	-rm -f book.lof
+	-rm -f book.lot
 	-rm -f book.log
 	-rm -f book.out
 	-rm -f book.pdf

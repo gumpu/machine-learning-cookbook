@@ -8,5 +8,7 @@ density_plot.pdf : test1.csv
 	    < ../Tools/density_plot.r
 
 clean :
+	-rm -f *.pdf
+	-rm -f test1.csv
 	echo 'Done'
 

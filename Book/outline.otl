@@ -4,7 +4,11 @@ Introduction
 
 The Dataset
 
-Exploring the dataset
+		Exploring the dataset
+			Density plot
+			Density plot by class
+
+Workflow
 
 Training
 	Making a model
@@ -21,9 +25,13 @@ Training
 
 	Tuning Model Parameters
 
+Evaluation
+
 Dealing with missing data
 
 Dealing with too little data
 
 Dealing with too much data
+
+Useful R packages
 

@@ -1,17 +1,51 @@
 vi: spell spl=en ft=otl
 
 Introduction
+| 
 
 The Dataset
-		Exploring the dataset
-			Density plot
-			Density plot by class
+	Exploring the dataset
+		Density plot
+		Density plot by class
 
 Workflow
-	| What is the workflow needed to make a prediction
+| What is the workflow needed to make a prediction
+
+Training Part 1
+|
+	Random Forest
+	Making a model
+	Making a prediction
+
+Evaluation
+| How do we measure how well an algorithm performs.
+	F1
+		What is is?
+		How is it computed?
+		How to judge it
+	ROC
+		What is it?
+		How is it computed?
+	Area under the curve
+		How is it computed
+
+	Density plots
+
+Overfitting
+| It is possible to train a model so much it fits the training data very well
+| but the test data no very well.
+
+	How to detect overfitting while training
+
+	Cross Validation
 
 
-Training
+Feature Selection
+
+Tuning Model Parameters
+
+Training Part 2
+|
 	Making a model
 	Making a prediction
 	Feature selection
@@ -23,30 +57,11 @@ Training
 		SVM
 		ANN
 
-	Tuning Model Parameters
-
-Evaluation
-	| How do we measure how well an algorithm performs.
-	F1
-		How to judge it
-	ROC
-		How is it computed
-		
-	Area under the curve
-
-	Density plots
-
 Cleaning Data
 
-Overfitting
-| It is possible to train a model so much it fits the
-| training data very well but the test data no very well.
-	How to detect overfitting while training
-
 Dealing with missing data
-| Sometimes not all samples have a value for each feature.
-| Not all algorithms can deal with these missing values.
-| So how do we deal with this.
+| Sometimes not all samples have a value for each feature.  Not all algorithms
+| can deal with these missing values.  So how do we deal with this.
 
 
 Dealing with too little data

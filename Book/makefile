@@ -5,6 +5,10 @@ book.pdf : book.tex book.bib makefile
 	pdflatex  book
 	bibtex    book
 	makeindex book
+	pdflatex  book
+	bibtex    book
+	makeindex book
+
 
 clean :
 	make -C Figures clean

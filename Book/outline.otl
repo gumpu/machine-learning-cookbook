@@ -63,10 +63,14 @@ Dealing with missing data
 | Sometimes not all samples have a value for each feature.  Not all algorithms
 | can deal with these missing values.  So how do we deal with this.
 
-
 Dealing with too little data
+|
 
 Dealing with too much data
+|
+
+Troubleshooting
+
 
 Useful R packages
 

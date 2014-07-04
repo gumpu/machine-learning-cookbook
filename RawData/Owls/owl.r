@@ -8,17 +8,18 @@ rm(list=ls())
 number_of_owls    <- 50000+50000
 
 # There are two kind of owls forest and city.
-kind         <- sample(c(2,9), number_of_owls, replace=TRUE)
-kind_factor  <- log10(kind)
+kind         <- sample(c(2,5), number_of_owls, replace=TRUE)
+kind_factor  <- log10(kind)   # + rnorm(10,0,0.1)
 kind         <- factor(kind)
 levels(kind) <- c("forest", "city")
 
 #=============================================================================
-forest   <- ifelse(runif(number_of_owls)<0.55, 0, 1)
-gender   <- ifelse(runif(number_of_owls)<0.45, 0, 1)
+forest   <- ifelse(runif(number_of_owls)<0.50, 0, 1)
+gender   <- ifelse(runif(number_of_owls)<0.49, 0, 1)
 age      <- 2 + rexp(number_of_owls,rate=0.15) + (60*runif(number_of_owls)+1)
 age      <- floor(age)
-height   <- 50 - kind_factor*15 + gender*10 + rnorm(number_of_owls, mean=0,sd=3)
+height   <- 50 - kind_factor*15 + gender*10 + 
+                rnorm(number_of_owls, mean=0, sd=3)
 height   <- round(height + 7*log(age), 2)
 eyesize  <- rnorm(number_of_owls, mean=20, sd=0.2)
 headsize <- 3*eyesize + rnorm(number_of_owls, mean=1, sd=0.2)
@@ -39,10 +40,12 @@ dataset <- data.frame(
     height=height,
     wingspan=wingspan,
     weight=weight,
+    test=FALSE,
     kind=kind
 )
 options(digits=4)
 
+#=============================================================================
 # 50000 test samples,
 # 50000 training samples
 ind <- sample.int(nrow(dataset), 50000)
@@ -59,6 +62,9 @@ write.table(testset,
     row.names=FALSE, col.names=TRUE)
 save(testset, file="test.rdata")
 
+#=============================================================================
+ind <- sample.int(nrow(dataset), 50000)
+dataset[-ind, "test"] <- TRUE
 save(dataset, file="dataset.rdata")
 
 #=============================================================================
@@ -70,7 +76,6 @@ dataset[ind, "weight"] <- NA
 ind <- sample.int(nrow(dataset), 2200)
 dataset[ind, "gender"] <- NA
 
-ind <- sample.int(nrow(dataset), 50000)
 trainingset <- dataset[ ind,]
 testset     <- dataset[-ind,]
 
@@ -84,8 +89,6 @@ write.table(testset,
     row.names=FALSE, col.names=TRUE)
 save(testset, file="test_with_na.rdata")
 
-dataset$test          <- FALSE
-dataset[-ind, "test"] <- TRUE
 save(dataset, file="dataset_with_na.rdata")
 
 #=============================================================================

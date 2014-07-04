@@ -5,6 +5,8 @@ require(bitops)
 require(pROC)
 require(randomForest)
 set.seed(196711)
+
+# This prevents many errors...
 rm(list=ls())
 
 # There are 2^n ways to select m items from n items.
@@ -18,16 +20,16 @@ select <- function(n, x) {
 #===========================================================================
 get_metrics <- function(model, selection, testdata, kind, model_number) {
     # Predict the labels for the testset
-    prediction <- predict(model, testset, type="prob")
+    prediction <- predict(model, testdata, type="prob")
 
     # Compute Score
-    r <- roc(testset$kind, prediction[,'city'])
+    r <- roc(testdata$kind, prediction[,'city'])
     # Area under the curve
     auc <- r$auc
 
     # Type I and II errors etc
-    prediction <- predict(model, testset, type="response")
-    tt <- table(prediction, testset$kind)
+    prediction <- predict(model, testdata, type="response")
+    tt <- table(prediction, testdata$kind)
     forest.forest     <- tt['forest', 'forest']
     forest.but.city   <- tt['forest', 'city']
     city.but.forest   <- tt['city', 'forest']
@@ -48,7 +50,7 @@ get_metrics <- function(model, selection, testdata, kind, model_number) {
     # positive class but should have been). [1]
     recall    <- city.city / (city.city + forest.but.city)
 
-    error_rate <- (forest.but.city + city.but.forest)/nrow(testset)
+    error_rate <- (forest.but.city + city.but.forest)/nrow(testdata)
 
     # Add it to dataframe with performace data
     return(

@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{subfig}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{makeidx}
 \makeindex
 
@@ -15,7 +16,7 @@
 %\usepackage{bookman}
 %\usepackage[T1]{fontenc}
 
-\title{ML Cookbook}
+\title{Machine Learning by Example}
 \author{Frans Slothouber}
 \publisher{We Dig Data}
 \date{\today}
@@ -27,6 +28,11 @@
   July\or August\or September\or October\or November\or
   December\fi\space\number\year
 }
+
+%=============================================================================
+
+\newcommand{\ranvars}[1]{\ensuremath{ \mathbf{#1} }}
+\newcommand{\ranvar}[1]{\ensuremath{ #1 }}
 
 %=============================================================================
 
@@ -70,13 +76,38 @@ Copyright \copyright\ \the\year\ \thanklessauthor
 
 \chapter*{Introduction}
 
+Machine learning is about teaching a computer something
+by showing it many examples and let it generalize from that.
+
+Many humans like this kind of learning too.
+
+So this book aim of this book is to teach you machine learning
+by showing you many examples.
+
 In the book we take a single dataset and use this to 
 exhaustively try out a large number of machine learning techniques.
 
+We use R.
+While this language has many pitfalls~\cite{Burns2011}
+it is very expressive and well suited for machine learning.
 
 %=============================================================================
 \mainmatter
 
+%=============================================================================
+\chapter{Machine Learning}
+
+% TODO Add illustration.
+
+\cite{friedman2000greedy} % Gives a nice formulation
+
+output or response variable $y$
+
+a set of random "input" or "explanatory" variables
+$\ranvars{x} = {x_1, \cdots, x_n}$.
+
+
+%=============================================================================
 \chapter{The Dataset}
 
 The dataset used in this book is a synthetic one.
@@ -111,6 +142,8 @@ The set contains the following features:
 \end{figure*}
 
 
+\input{Tables/raw_stats.tex}
+
 \chapter{Training}
 
 \section{Random Forest}
@@ -122,6 +155,13 @@ The set contains the following features:
 \chapter{Sandbox}
 
 Test \cite{Tufte2006}
+
+
+"There is significant variability across the problems
+and metrics. Even the best models sometimes perform
+poorly, and models with poor average performance occasionally
+perform exceptionally well" \cite{Caruana2006}
+
 
 % Random Forest
 % SVM 

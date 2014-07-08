@@ -1,6 +1,3 @@
-# > bitAnd(c(1,2,4,8),2)>0
-# [1] FALSE  TRUE FALSE FALSE
-
 require(bitops)
 require(pROC)
 require(randomForest)
@@ -14,7 +11,10 @@ rm(list=ls())
 # of a vector of logicals.
 select <- function(n, x) {
     twopowers <- 2^(0:(n-1))
-    bitAnd(twopowers,x)>0
+    # The trick:
+    # > bitAnd(c(1,2,4,8),2)>0
+    # [1] FALSE  TRUE FALSE FALSE
+    bitAnd(twopowers, x) > 0
 }
 
 #===========================================================================
@@ -52,7 +52,8 @@ get_metrics <- function(model, selection, testdata, kind, model_number) {
 
     error_rate <- (forest.but.city + city.but.forest)/nrow(testdata)
 
-    # Add it to dataframe with performace data
+    oob_error_rate <- model$err.rate[nrow(model$err.rate),'OOB']
+    # Put it all into a dataframe
     return(
         data.frame(model = paste(selection, collapse="+"),
                    auc=auc,
@@ -63,6 +64,7 @@ get_metrics <- function(model, selection, testdata, kind, model_number) {
                    precision       = precision,
                    recall          = recall,
                    error_rate      = error_rate,
+                   oob_error_rate  = oob_error_rate,
                    kind            = kind,
                    model_number    = model_number)
     )
@@ -94,8 +96,8 @@ try_all_models <- function(features, training, testset) {
     return(performance)
 }
 
-load("../RawData/Owls/dataset.rdata")
 
+load("../RawData/Owls/dataset.rdata")
 full_training <- dataset[!dataset$test,]
 full_testset  <- dataset[dataset$test,]
 
@@ -103,11 +105,13 @@ features <- c("gender", "eyesize", "headsize",
               "age", "height",  "wingspan", "weight")
 
 
-options(digits=4)
+options(digits=6)
 
+#=============================================================================
 perf <- try_all_models(features, full_training, full_testset)
 write.csv(file="all_models_perf_full_sets.csv", perf, row.names=FALSE)
 
+#=============================================================================
 idx <- sample.int(nrow(dataset), 200)
 small_dataset  <- dataset[idx,]
 small_training <- small_dataset[!small_dataset$test,]
@@ -115,6 +119,7 @@ small_testset  <- small_dataset[small_dataset$test,]
 perf_small <- try_all_models(features, small_training, small_testset)
 write.csv(file="all_models_perf_small_sets.csv", perf_small, row.names=FALSE)
 
+#=============================================================================
 idx <- sample.int(nrow(dataset), 200)
 small_dataset  <- dataset[idx,]
 small_training <- small_dataset[!small_dataset$test,]
@@ -122,5 +127,6 @@ perf_small <- try_all_models(features, small_training, full_testset)
 write.csv(file="all_models_perf_small_train.csv", perf_small, row.names=FALSE)
 
 
+#=============================================================================
 # [1] http://en.wikipedia.org/wiki/Precision_and_recall
 

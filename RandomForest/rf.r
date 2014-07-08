@@ -17,8 +17,9 @@ model2 <- randomForest(
     training, ntree=20, do.trace=TRUE)
 
 model3 <- randomForest(
-    kind ~ gender + height + weight, 
-    training, ntree=20, do.trace=TRUE)
+    kind ~ age+height+wingspan+weight,
+    # kind ~ gender + height + weight, 
+    training, ntree=120, do.trace=TRUE)
 
 model1
 model2
@@ -43,4 +44,6 @@ test1      <- test
 test1$kind <- prediction3
 write.table(test1, file="test1.csv", sep=",", row.names=FALSE, quote=FALSE)
 
+
+# plot(labels(model3$err.rate)[[1]],model3$err.rate[,1],type="b")
 

@@ -8,31 +8,31 @@ require(randomForest)
 training <- read.table(
     "../RawData/Owls/training.csv", sep=",", header=TRUE)
 
-model1 <- randomForest(
+fit1 <- randomForest(
     kind ~ gender + height + weight + wingspan, 
     training, ntree=20, do.trace=TRUE)
 
-model2 <- randomForest(
+fit2 <- randomForest(
     kind ~ age + gender + height + weight + wingspan, 
     training, ntree=20, do.trace=TRUE)
 
-model3 <- randomForest(
+fit3 <- randomForest(
     kind ~ age+height+wingspan+weight,
     # kind ~ gender + height + weight, 
     training, ntree=120, do.trace=TRUE)
 
-model1
-model2
-model3
+fit1
+fit2
+fit3
 
-# model2 <- randomForest(weight ~ ., training, ntree=3, do.trace=TRUE)
+# fit2 <- randomForest(weight ~ ., training, ntree=3, do.trace=TRUE)
 
 test <- read.table("../RawData/Owls/test.csv", sep=",", header=TRUE)
 
 # Predict the kind
-prediction1 <- predict(model1, test)
-prediction2 <- predict(model2, test)
-prediction3 <- predict(model3, test)
+prediction1 <- predict(fit1, test)
+prediction2 <- predict(fit2, test)
+prediction3 <- predict(fit3, test)
 
 # Make a test set with predicted values, so we can make density plots.
 

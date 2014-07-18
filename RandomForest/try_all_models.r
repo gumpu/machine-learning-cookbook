@@ -18,9 +18,9 @@ select <- function(n, x) {
 }
 
 #===========================================================================
-get_metrics <- function(model, selection, testdata, kind, model_number) {
+get_metrics <- function(fit, selection, testdata, kind, model_number) {
     # Predict the labels for the testset
-    prediction <- predict(model, testdata, type="prob")
+    prediction <- predict(fit, testdata, type="prob")
 
     # Compute Score
     r <- roc(testdata$kind, prediction[,'city'])
@@ -28,7 +28,7 @@ get_metrics <- function(model, selection, testdata, kind, model_number) {
     auc <- r$auc
 
     # Type I and II errors etc
-    prediction <- predict(model, testdata, type="response")
+    prediction <- predict(fit, testdata, type="response")
     tt <- table(prediction, testdata$kind)
     forest.forest     <- tt['forest', 'forest']
     forest.but.city   <- tt['forest', 'city']
@@ -52,7 +52,7 @@ get_metrics <- function(model, selection, testdata, kind, model_number) {
 
     error_rate <- (forest.but.city + city.but.forest)/nrow(testdata)
 
-    oob_error_rate <- model$err.rate[nrow(model$err.rate),'OOB']
+    oob_error_rate <- fit$err.rate[nrow(fit$err.rate),'OOB']
     # Put it all into a dataframe
     return(
         data.frame(model = paste(selection, collapse="+"),
@@ -81,15 +81,15 @@ try_all_models <- function(features, training, testset) {
 
         if (length(selection) > 1) {
             # Create estimator
-            model <- randomForest(y=training$kind, 
-                                  x=training[,selection],
-                                  ntree=120)
+            fit <- randomForest(y=training$kind, 
+                                x=training[,selection],
+                                ntree=120)
 
             # Evaluate the performance
             performance <- rbind( performance, 
-                get_metrics(model, selection, testset, "test", i))
+                get_metrics(fit, selection, testset, "test", i))
             performance <- rbind(performance, 
-                get_metrics(model, selection, training, "train", i))
+                get_metrics(fit, selection, training, "train", i))
 
         }
     }
